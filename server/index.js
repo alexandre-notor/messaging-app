@@ -18,6 +18,16 @@ function saveMessage(data) {
 
 
 
+// funtion pour la lecture des messages
+function readMessage() {
+    try {
+        return fs.readFileSync('./messages', 'utf-8');
+
+    } catch (e) {
+        return JSON.stringify({ messages: [] });
+    }
+}
+
 
 const server = http.createServer();
 
@@ -31,20 +41,14 @@ server.on("request", (req, res) => {
         req.on('data', (data) => saveMessage(data));
         res.statusCode(200)
     } else if (req.url == '/get') {
-        /**
-         * ici il faudra renvoyer des données encodé en JSON
-         * Le format de donnée est le suivant:
-         * {id: "0001", user: "Herilion", "text": "Je suis parti au Salon"}
-         * Pour les données en JSON il faut que l'entête de la reponse soit
-         * {"Content-Type": "application/json"}
-         * Penser à Utiliser JSON.stringify() et JSON.parse()
-        */
+        res.setHeader("Content-Type", "Application/json");
+        res.statusCode(200);
+        res.write(readMessage());
 
     } else {
-        /**Ici nous devont verifier le type de la requêtte et permettre
-         * une requêtte CORS en cas de besoin
-        */
+    res.statusCode(400)
     }
+    res.end();
 })
 
 
