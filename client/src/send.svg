@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L45 0L45 45L0 45L0 0Z" id="path_1" />
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="send">
+    <path d="M0 0L45 0L45 45L0 45L0 0Z" id="Arrière-plan" fill="#FFFFFF" fill-opacity="0" fill-rule="evenodd" stroke="none" />
+    <g clip-path="url(#mask_1)">
+      <path d="M20.3512 28.62L16.875 32.7281L16.875 39.375L35.625 15L20.3512 28.62L20.3512 28.62Z" id="Polygone" fill="#D3D3D3" fill-rule="evenodd" stroke="none" />
+      <path d="M5.625 22.5L16.1381 28.1063L16.1494 28.1063L31.875 15L20.2031 28.7944L22.5 31.4644L33.75 37.5L39.375 5.625L5.625 22.5L5.625 22.5Z" id="Polygone" fill="#D3D3D3" fill-rule="evenodd" stroke="none" />
+    </g>
+  </g>
+</svg>
