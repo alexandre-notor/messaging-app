@@ -4,7 +4,7 @@ const fs = require('fs');
 
 //function pour le sauvegarde des Messages
 function saveMessage(data) {
-    let [key, value] = data.toString('utf-8').split('=');
+    let [key, value] = data.toString('utf-8').replace(/\+/g, ' ').split('=');
     if (key === 'message') value = decodeURIComponent(value);
 
     try {
@@ -39,14 +39,14 @@ server.on("request", (req, res) => {
     if (req.url == '/put') {
 
         req.on('data', (data) => saveMessage(data));
-        res.statusCode(200)
+        res.statusCode = 200
     } else if (req.url == '/get') {
         res.setHeader("Content-Type", "Application/json");
-        res.statusCode(200);
+        res.statusCode = 200;
         res.write(readMessage());
 
     } else {
-    res.statusCode(400)
+    res.statusCode = 400
     }
     res.end();
 })
