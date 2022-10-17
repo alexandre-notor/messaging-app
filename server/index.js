@@ -1,7 +1,6 @@
 const http = require('http');
 const fs = require('fs');
 
-
 //function pour le sauvegarde des Messages
 function saveMessage(data) {
     let [key, value] = data.toString('utf-8').replace(/\+/g, ' ').split('=');
@@ -16,18 +15,16 @@ function saveMessage(data) {
     }
 }
 
-
-
 // funtion pour la lecture des messages
-function readMessage() {
+function readMessage(index) {
     try {
-        return fs.readFileSync('./messages', 'utf-8');
+        const data = JSON.parse(fs.readFileSync('./messages', 'utf-8'));
+        return JSON.stringify({ messages: data.messages.slice(index) });
 
     } catch (e) {
         return JSON.stringify({ messages: [] });
     }
 }
-
 
 const server = http.createServer();
 
@@ -35,18 +32,17 @@ server.on("request", (req, res) => {
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS")
     res.setHeader("Access-Control-Allow-Headers", "*")
     res.setHeader("Access-Control-Allow-Origin", "*")
-
     if (req.url == '/put') {
-
         req.on('data', (data) => saveMessage(data));
         res.statusCode = 200
-    } else if (req.url == '/get') {
+    } else if (req.url && req.url.split('?')[0] == '/get') {
+        let params = req.url.match(/(?<=\?last=)\d+/);
+        params = params ? parseInt(params) : 0;
         res.setHeader("Content-Type", "Application/json");
         res.statusCode = 200;
-        res.write(readMessage());
-
+        res.write(readMessage(params));
     } else {
-    res.statusCode = 400
+        res.statusCode = 400
     }
     res.end();
 })
