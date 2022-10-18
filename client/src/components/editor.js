@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import './style.css';
 
-function Editor({sendMessage}) {
+function Editor({ sendMessage }) {
     const [text, setText] = useState("")
     const submitText = (e) => {
         e.preventDefault();
-        if(text.trim() === "") return;
+        if (text.trim() === "") return;
         sendMessage(text.trim());
         setText('');
     }
@@ -12,7 +13,7 @@ function Editor({sendMessage}) {
     return (
         <form onSubmit={submitText}>
             <input type="text" onChange={(e) => setText(e.target.value)} value={text} />
-            <button>Send</button>
+            <button className='btnSend'>Send</button>
         </form>
     )
 }
